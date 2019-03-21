@@ -5,10 +5,10 @@ import java.util.Random;
 import com.asz.rubik.fundamentals.RubikCube;
 import com.asz.rubik.fundamentals.RubikCubeSide;
 
-public class RubikCubeShuffler {
-
+public class RubikCubeShuffler 
+{
 	private RubikCube cube;
-	//Testing
+
 	public RubikCubeShuffler(RubikCube cube) {
 		this.cube = cube;
 	}
