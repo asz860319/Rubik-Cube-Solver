@@ -8,7 +8,7 @@ import com.asz.rubik.fundamentals.RubikCubeSide;
 public class RubikCubeShuffler {
 
 	private RubikCube cube;
-	
+	//Testing
 	public RubikCubeShuffler(RubikCube cube) {
 		this.cube = cube;
 	}
