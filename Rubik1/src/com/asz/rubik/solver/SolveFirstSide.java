@@ -82,6 +82,7 @@ public class SolveFirstSide {
 		
 		for(int lop = 0; lop < edges.size(); lop++)
 		{			
+			antiRecurse = 0;
 			solveCrossEdgeByActionArray(bestSide, adjacentSides.get(lop), edges.get(lop));
 			
 			try 
@@ -111,6 +112,11 @@ public class SolveFirstSide {
 			RubikCubeEdge edge
 			) throws Exception 
 	{		
+		if(antiRecurse > 12)
+		{
+			throw new Exception("ANTIRECURSE ABORTED");
+		}
+		antiRecurse++;
 		RubikCubeSide sideUp     = sideCrossToSolve;
 		RubikCubeSide sideFront  = sideCrossToSolveArm;
 		RubikCubeSide sideDown   = sideUp.getOppositeSide();
@@ -304,7 +310,6 @@ public class SolveFirstSide {
 
 		if(antiRecurse > 12)
 		{
-			System.out.println("ANTIRECURSE ABORTED");
 			throw new Exception("ANTIRECURSE ABORTED");
 		}
 		antiRecurse++;

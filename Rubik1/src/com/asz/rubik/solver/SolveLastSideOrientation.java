@@ -17,6 +17,7 @@ public class SolveLastSideOrientation
 	private int antiRecurseEdge = 0;
 	
 	public boolean solveDone;
+	private int antiRecurse;
 	
 	public SolveLastSideOrientation(RubikCube cube, RubikCubeSide downSide) 
 	{
@@ -31,12 +32,20 @@ public class SolveLastSideOrientation
 		ArrayList<RubikCubeSide> adjacentSides = sideUp.getAdjacentSidesOrdered();		
 		RubikCubeSide sideFront = adjacentSides.get(0);	
 		
+		antiRecurse = 0;
+		
 		solveCrossCornerOrientation(sideUp, sideFront);		
 	}
 
 	private void solveCrossCornerOrientation(RubikCubeSide sideUp, RubikCubeSide sideFront) 
 			throws Exception 
 	{
+		if(antiRecurse > 12)
+		{
+			throw new Exception("ANTIRECURSE ABORTED");
+		}
+		antiRecurse++;
+
 		RubikCubeSide sideLeft = cube.calculateLeft(sideUp, sideFront);
 		RubikCubeSide sideRight = sideLeft.getOppositeSide();
 		RubikCubeSide sideBack = sideFront.getOppositeSide();

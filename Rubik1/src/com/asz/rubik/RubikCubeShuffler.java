@@ -11,7 +11,7 @@ public class RubikCubeShuffler
 
 	public RubikCubeShuffler(RubikCube cube) {
 		this.cube = cube;
-	}
+	} 
 
 	public void scramble(int movesCount) throws Exception 
 	{

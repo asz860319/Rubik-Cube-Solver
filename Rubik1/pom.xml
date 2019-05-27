@@ -24,4 +24,11 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.openjfx</groupId>
+  		<artifactId>javafx-controls</artifactId>
+  		<version>12.0.1</version>
+  	</dependency>
+  </dependencies>
 </project>

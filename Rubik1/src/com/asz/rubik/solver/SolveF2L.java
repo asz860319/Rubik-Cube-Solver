@@ -11,6 +11,7 @@ public class SolveF2L {
 
 	private RubikCube cube;
 	private RubikCubeSide bottomSide;
+	private int antiRecurse;
 	private static int succeded = 0;
 	private static int failed = 0;
 
@@ -29,6 +30,7 @@ public class SolveF2L {
 		
 		for(int i = 0; i < adjacentSides.size(); i++)
 		{
+			antiRecurse = 0;
 			RubikCubeSide c1 = topSide;
 			RubikCubeSide c2 = adjacentSides.get(i);
 			RubikCubeSide c3;
@@ -43,7 +45,6 @@ public class SolveF2L {
 
 			edge = cube.getEdgePieceByFace(c2, c3);
 			
-//			System.out.println(edge.introduce());
 			solveF2LEdgeByActionArray(c1, c3, edge);
 			
 			try 
@@ -54,12 +55,7 @@ public class SolveF2L {
 			{
 				failed++;
 			}
-						
-//			System.out.println("***SuccesRateF2L:" + 100 * succeded / (succeded + failed) + "***");
-//			System.out.println("NEXT!!!");
 		}	
-		
-//		System.out.println(new RubikCubePrinter2D().getPiecesAsCross(cube));
 	}
 
 	private void solveF2LEdgesTest(RubikCubeSide topSide, RubikCubeSide facingYouSide, 
@@ -74,7 +70,13 @@ public class SolveF2L {
 	private void solveF2LEdgeByActionArray(RubikCubeSide topSide, RubikCubeSide facingYouSide,
 			RubikCubeEdge edge) throws Exception
 	{
- 		RubikCubeSide sideUp = topSide;
+		if(antiRecurse > 20)
+		{
+			throw new Exception("ANTIRECURSE ABORTED");
+		}
+		antiRecurse++;
+		
+		RubikCubeSide sideUp = topSide;
 		RubikCubeSide sideFront = facingYouSide;
 		RubikCubeSide sideLeft = cube.calculateLeft(sideUp, sideFront);
 		RubikCubeSide sideDown = sideUp.getOppositeSide();

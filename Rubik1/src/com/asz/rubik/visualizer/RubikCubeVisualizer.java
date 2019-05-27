@@ -156,7 +156,7 @@ public class RubikCubeVisualizer implements SideMoveObserver
 	{
 		this.cube = cube;
 		root = new Group();
-		cubeSolvable = false;
+		cubeSolvable = true;
 		
 		editType = -1;
 		isEditing = false;
@@ -434,7 +434,7 @@ public class RubikCubeVisualizer implements SideMoveObserver
 					);	
 		}
 		
-		waitTimeText = new Text(300 + 160 + space, startY + (buttonSize + space) + 20, "TPS");
+		waitTimeText = new Text(300 + 160 + space - 85, startY + (buttonSize + space) + 45, "Turns Per Second");
 		waitTimeText.setFill(Color.BLACK);
 		root.getChildren().add(waitTimeText);		
 		
@@ -696,7 +696,7 @@ public class RubikCubeVisualizer implements SideMoveObserver
 					Dialog<ButtonType> warning = new Dialog<>();
 					warning.setTitle("Warning");
 					warning.setHeaderText("Impossible Edit");
-					warning.setContentText("Warning: The edit you made is not possible on a regular cube.");
+					warning.setContentText("Warning: The state of this cube is impossible on a regular cube");
 					warning.setResult(ButtonType.CANCEL);
 
 					warning.getDialogPane().getButtonTypes().add(ButtonType.OK);
@@ -1033,7 +1033,7 @@ public class RubikCubeVisualizer implements SideMoveObserver
 				public void run() 
 				{
 					cube.setSlowSpeed(1000 / waitTimeTextBox.getIntValue());
-					RubikCubeShuffler scrambler = new RubikCubeShuffler(cube);
+					RubikCubeShuffler scrambler = new RubikCubeShuffler(cube);					
 					try 
 					{
 				        editButton.   setDisable(true);
@@ -1081,7 +1081,9 @@ public class RubikCubeVisualizer implements SideMoveObserver
 	        solveThread.start();
 			break;
 		case "Reset": 
-			resetCube(); 
+			resetCube();
+			cubeSolvable = true;
+			solveButton.getButton().setDisable(!cubeSolvable);
 			break;
 		case "X":
 			RubikCubeVisualizerSide sideDown = getSideByCode(currentUp.getOppositeCubeSideTypeCode());
@@ -1213,7 +1215,13 @@ public class RubikCubeVisualizer implements SideMoveObserver
 	private void setButtonEnable(boolean isEnabled) 
 	{
 		scrambleButton.getButton().setDisable(!isEnabled);
-		solveButton.getButton().setDisable(!isEnabled);
+		if(!cubeSolvable)
+		{
+			solveButton.getButton().setDisable(!cubeSolvable);
+		} else
+		{
+			solveButton.getButton().setDisable(!isEnabled);
+		}
 		resetButton.getButton().setDisable(!isEnabled);
 		waitTimeTextBox.setDisable(!isEnabled);
 		
